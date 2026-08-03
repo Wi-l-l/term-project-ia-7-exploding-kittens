@@ -1,0 +1,19 @@
+{
+  "PlayerList": [
+    {
+      "PlayerId": 1,
+      "PlayerName": "Alice",
+      "CoinBalance": 200
+    },
+    {
+      "PlayerId": 2,
+      "PlayerName": "Bob",
+      "CoinBalance": 300
+    },
+    {
+      "PlayerId": 3,
+      "PlayerName": "Charles",
+      "CoinBalance": 500
+    }
+  ]
+}

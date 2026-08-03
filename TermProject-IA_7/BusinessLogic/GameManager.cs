@@ -18,14 +18,24 @@ public class GameManager
         //
         LoadGameSettings();
         _cardDeck = new CardDeck(settings.deckSize);
-        _playerCount = settings.maxUsers;
+        //_playerCount = settings.maxUsers;
         _difficultyLevel = settings.difficultyLevels;
         
-        for (int currPlayer = 0; currPlayer < _playerCount; currPlayer++)
+        //for (int currPlayer = 0; currPlayer < _playerCount; currPlayer++)
+        //{
+        //    Player player = new Player();
+        //    _playersList.Add(player);
+        //}
+        
+        //load players from the json file
+        LoadPlayers();
+        foreach (PlayerInfo playerinfo in _storeGamePlayers.PlayerList)
         {
-            Player player = new Player();
+            Player player = new Player(playerinfo.PlayerId, playerinfo.PlayerName, playerinfo.CoinBalance);
             _playersList.Add(player);
         }
+
+        _playerCount = _playersList.Count;
     }
 
     public Card DrawCard(int playerIndex)
@@ -125,5 +135,16 @@ public class GameManager
 
         settings = JsonSerializer.Deserialize<GameSettings>(JsonContent)!;
         
+    }
+
+    private StoreGamePlayers _storeGamePlayers;
+    public void LoadPlayers()
+    {
+        string path = Path.Combine(
+            AppContext.BaseDirectory,
+            "../Resources/GameData/Players.json");
+        string JsonContent = File.ReadAllText(path);
+        
+        _storeGamePlayers = JsonSerializer.Deserialize<StoreGamePlayers>(JsonContent)!;
     }
 }
