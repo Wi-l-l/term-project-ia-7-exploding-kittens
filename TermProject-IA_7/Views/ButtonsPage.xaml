@@ -4,7 +4,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TermProject_IA_7.Views.ButtonsPage">
     <ContentPage.Content>
-        <Button Text="Shuffle"
-                Clicked="OnShuffleCards"/>
+        <VerticalStackLayout>
+            <Button Text="Reset Round"
+                    Clicked="OnResetRound"/>
+            <Button Text="Draw Card"
+                    Clicked="OnDrawCard"/>
+            <Button Text="New Game"
+                    Clicked="OnNewGame"/>
+        </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>

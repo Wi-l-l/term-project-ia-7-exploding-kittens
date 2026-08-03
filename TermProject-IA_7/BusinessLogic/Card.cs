@@ -10,4 +10,10 @@ public class Card
         //_value = value;
         _type = type;
     }
+
+    public CardType Type
+    {
+        get { return _type; }
+        set { _type = value; }
+    }
 }
