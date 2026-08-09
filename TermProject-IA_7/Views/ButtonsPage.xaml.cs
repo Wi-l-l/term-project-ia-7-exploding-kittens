@@ -17,6 +17,7 @@ public partial class ButtonsPage : ContentPage
     {
         InitializeComponent();
         playerCount = _gameManager.PlayerCount();
+        //_gameManager.NewGame();
     }
 
     private void OnResetRound(object? sender, EventArgs e)

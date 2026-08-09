@@ -60,7 +60,8 @@ public class GameManager
                     remainingPlayerCount++;
                     
                     //Each remaining player will gain 1 score
-                    foreach (GamePlayer gamePlayer in _gameHistory.Results[-1].Players)
+                    GameResult result = _gameHistory.Results.Last();
+                    foreach (GamePlayer gamePlayer in result.Players)
                     {
                         if (gamePlayer.PlayerId == player.Id)
                         {
@@ -139,14 +140,17 @@ public class GameManager
         LoadGameResults();
         GameResult newGameResult = new GameResult();
         newGameResult.GameId = 1; //TODO?: revisit later
-        _gameHistory.Results.Add(newGameResult);
-        
+        //add players
+        newGameResult.Players = [];
         foreach (Player player in _playersList)
         {
             GamePlayer gamePlayer = new GamePlayer();
             gamePlayer.PlayerId = player.Id;
             gamePlayer.PlayerScore = 0;
+            newGameResult.Players.Add(gamePlayer);
         }
+        _gameHistory.Results.Add(newGameResult);
+
     }
 
     private GameSettings settings;
