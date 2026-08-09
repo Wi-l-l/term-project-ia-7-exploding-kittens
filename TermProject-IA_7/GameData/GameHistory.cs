@@ -14,5 +14,5 @@ public class GamePlayer
 
 public class GameHistory
 {
-    public List<GameResult> Results { get; set; }
+    public List<GameResult> Results { get; set; } = new List<GameResult>();
 }

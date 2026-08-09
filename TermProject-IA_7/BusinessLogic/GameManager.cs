@@ -12,20 +12,15 @@ public class GameManager
     private bool _gameIsOver = false;
     private bool _roundIsOver = false;
     private int _difficultyLevel;
+    private GameHistory _gameHistory = new GameHistory();
+    private string baseLibrary = "/Users/willock";
     
     public GameManager()
     {
         //
         LoadGameSettings();
         _cardDeck = new CardDeck(settings.deckSize);
-        //_playerCount = settings.maxUsers;
         _difficultyLevel = settings.difficultyLevels;
-        
-        //for (int currPlayer = 0; currPlayer < _playerCount; currPlayer++)
-        //{
-        //    Player player = new Player();
-        //    _playersList.Add(player);
-        //}
         
         //load players from the json file
         LoadPlayers();
@@ -35,7 +30,11 @@ public class GameManager
             _playersList.Add(player);
         }
 
+        //
         _playerCount = _playersList.Count;
+        
+        //
+        NewGame();
     }
 
     public Card DrawCard(int playerIndex)
@@ -57,7 +56,17 @@ public class GameManager
             {
                 if (player.IsEliminated == false)
                 {
+                    //Add 1 player to remaining player count
                     remainingPlayerCount++;
+                    
+                    //Each remaining player will gain 1 score
+                    foreach (GamePlayer gamePlayer in _gameHistory.Results[-1].Players)
+                    {
+                        if (gamePlayer.PlayerId == player.Id)
+                        {
+                            gamePlayer.PlayerScore++;
+                        }
+                    }
                 }
             }
 
@@ -67,9 +76,10 @@ public class GameManager
             }
             
             //stop the game
-
+            
+            
             //call GameOver and RewardWinner
-
+            
             //Extending: provide 2 options to go to main menu or to restart
         }
         
@@ -80,6 +90,7 @@ public class GameManager
     
     public bool GameIsOver()
     {
+        SaveGameResults();
         return _gameIsOver;
     }
 
@@ -123,6 +134,19 @@ public class GameManager
         }
 
         _gameIsOver = false;
+        
+        //initialize a new game record
+        LoadGameResults();
+        GameResult newGameResult = new GameResult();
+        newGameResult.GameId = 1; //TODO?: revisit later
+        _gameHistory.Results.Add(newGameResult);
+        
+        foreach (Player player in _playersList)
+        {
+            GamePlayer gamePlayer = new GamePlayer();
+            gamePlayer.PlayerId = player.Id;
+            gamePlayer.PlayerScore = 0;
+        }
     }
 
     private GameSettings settings;
@@ -146,5 +170,25 @@ public class GameManager
         string JsonContent = File.ReadAllText(path);
         
         _storeGamePlayers = JsonSerializer.Deserialize<StoreGamePlayers>(JsonContent)!;
+    }
+
+    public void SaveGameResults()
+    {
+        
+        string path = Path.Combine(FileSystem.AppDataDirectory, "GameHistory.json");
+        
+        string updatedJson = JsonSerializer.Serialize(_gameHistory);
+
+        File.WriteAllText(path, updatedJson);
+    }
+    
+    public void LoadGameResults()
+    {
+        
+        string path = Path.Combine(FileSystem.AppDataDirectory, "GameHistory.json");
+        
+        string JsonContent = File.ReadAllText(path);
+        
+        _gameHistory = JsonSerializer.Deserialize<GameHistory>(JsonContent)!;
     }
 }

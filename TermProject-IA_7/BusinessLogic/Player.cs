@@ -5,26 +5,59 @@ public class Player
     private int _id;
     private string _name;
     private int _coinBalance;
-    private List<Card> _cardsOnHand = new List<Card>();
+    private List<Card> _hand = new List<Card>();
+    private bool _hasBet;
+    private double _bet;
     private bool _isEliminated = false;
-    
+ 
     public Player(int id, string name, int coinBalance)
     {
-        //
         _id = id;
         _name = name;
         _coinBalance = coinBalance;
     }
-    
-    public void TakeCard(Card card)
+ 
+    public int Id => _id;
+    public string Name => _name;
+ 
+    public int CoinBalance
     {
-        //
-        _cardsOnHand.Add(card);
+        get => _coinBalance;
+        set => _coinBalance = value;
     }
-
+ 
+    public List<Card> Hand => _hand;
+ 
+    public bool HasBet
+    {
+        get => _hasBet;
+        set => _hasBet = value;
+    }
+ 
+    public double BetAmount
+    {
+        get => _bet;
+        set => _bet = value;
+    }
+ 
     public bool IsEliminated
     {
-        get { return _isEliminated; }
-        set { _isEliminated = value; }
+        get => _isEliminated;
+        set => _isEliminated = value;
+    }
+ 
+    public void AddCard(Card card)
+    {
+        _hand.Add(card);
+    }
+ 
+    public void TakeCard(Card card)
+    {
+        AddCard(card);
+    }
+ 
+    public int CalculateScore()
+    {
+        return _hand.Count;
     }
 }

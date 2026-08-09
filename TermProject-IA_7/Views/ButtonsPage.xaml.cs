@@ -74,4 +74,10 @@ public partial class ButtonsPage : ContentPage
         //
         _gameManager.NewGame();
     }
+
+    private void OnSaveGame(object? sender, EventArgs e)
+    {
+        //
+        _gameManager.SaveGameResults();
+    }
 }

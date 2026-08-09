@@ -16,6 +16,10 @@
             <!--After the last user wins, start a new game with all users being reset-->
             <Button Text="Start New Game"
                     Clicked="OnNewGame"/>
+            
+            <!--Save game history-->
+            <Button Text="Save Game"
+                    Clicked="OnSaveGame"/>
         </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>

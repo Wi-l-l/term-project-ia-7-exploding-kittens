@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TermProject_IA_7.Views.MainMenu"
+             Title="Exploding Kittens">
+ 
+    <Grid RowDefinitions="Auto, *, Auto" Padding="20">
+ 
+        <!-- Profile Header Panel -->
+        <Border Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start" Padding="10" StrokeThickness="1">
+            <VerticalStackLayout Spacing="4">
+                <Label x:Name="lblProfile" Text="Profile: Sehath" FontAttributes="Bold" />
+                <Label x:Name="lblCoins" Text="Coins: 750" HorizontalOptions="End" />
+            </VerticalStackLayout>
+        </Border>
+ 
+        <!-- Main Options -->
+        <VerticalStackLayout Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+            <Label Text="EXPLODING KITTENS GAME"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="Red"
+                   HorizontalOptions="Center" />
+ 
+            <Button Text="Start New Match"
+                    WidthRequest="220"
+                    HeightRequest="50"
+                    Clicked="OnStartGame" />
+ 
+            <Button Text="View Lifetime Status"
+                    WidthRequest="220"
+                    HeightRequest="50"
+                    Clicked="OnViewStats" />
+        </VerticalStackLayout>
+ 
+    </Grid>
+</ContentPage>
