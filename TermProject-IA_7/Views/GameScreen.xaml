@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="TermProject_IA_7.GameScreen" 
+             Title="GameScreen">
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="20">
+            <!-- TOP SECTION: Computer Opponent Hand Bubble  -->
+            <Border BackgroundColor="#F0F0F0"  Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="COMPUTER OPPONENT (Medium AI)" 
+                           FontAttributes="Bold" FontSize="16" />
+                    <HorizontalStackLayout Spacing="15">
+                        <Label x:Name="_lblComputerHandSize" 
+                               Text="Hand Size: 5 Cards" />
+                        <Label Text="|" />
+                        <Label x:Name="_lblGameStatus" 
+                               Text="Status: Waiting for player..." />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+            
+            <!-- MIDDLE SECTION: Game Arena  -->
+            <Grid ColumnDefinitions="*, *, 1.2*" HeightRequest="200" ColumnSpacing="15">
+                <!-- Draw Deck Area -->
+                <Border Grid.Column="0" 
+                        BackgroundColor="#EAEAEA" 
+                        HorizontalOptions="Fill" VerticalOptions="Fill">
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                        <Label Text="DRAW DECK" 
+                               HorizontalOptions="Center" FontAttributes="Bold"/>
+                        <Button Text="Draw Card" 
+                                Clicked="OnDealCards" HeightRequest="50"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Discard Pile Area -->
+                <Border Grid.Column="1" BackgroundColor="#EAEAEA" HorizontalOptions="Fill" VerticalOptions="Fill">
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                        <Label Text="DISCARD PILE" 
+                               HorizontalOptions="Center" FontAttributes="Bold"/>
+                        <Label x:Name="_lblLastDiscardedCard" 
+                               Text="See the Future Card" 
+                               HorizontalOptions="Center" VerticalOptions="Center" 
+                               LineBreakMode="WordWrap"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Scrollable Game Log  -->
+                <Border Grid.Column="2" BackgroundColor="#FAF9F6" >
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="GAME LOG" 
+                               FontAttributes="Bold" HorizontalOptions="Center" 
+                               Margin="0,0,0,5"/>
+                        <ScrollView HeightRequest="130">
+                            <Label x:Name="_txtGameLog" 
+                                   Text="[18:15] Match Started&#10;[18:16] User placed a 100-coin bet" 
+                                   FontSize="11" LineBreakMode="WordWrap" />
+                        </ScrollView>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+            
+            <!-- BOTTOM SECTION: Your Hand Frame -->
+            <Border  BackgroundColor="#E0E0E0" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="YOUR HAND" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    
+                    <!-- Scrollable list of cards in player's hand -->
+                    <HorizontalStackLayout x:Name="_hsPlayerHand" Spacing="10" HorizontalOptions="Center">
+                        <Button Text="DEFUSE" 
+                                Clicked="OnPlayCards" />
+                        <Button Text="SKIP" 
+                                Clicked="OnPlayCards" />
+                        <Button Text="ATTACK" 
+                                Clicked="OnPlayCards" />
+                        <Button Text="TACO CAT"
+                                Clicked="OnPlayCards" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -43,7 +43,7 @@ public partial class MainMenu : ContentPage
 
     {
 
-        await Shell.Current.GoToAsync(nameof(ButtonsPage));
+        await Shell.Current.GoToAsync(nameof(GameScreen));
 
     }
  

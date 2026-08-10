@@ -8,5 +8,6 @@ public partial class AppShell : Shell
     {
         InitializeComponent();
         Routing.RegisterRoute(nameof(ButtonsPage), typeof(ButtonsPage));
+        Routing.RegisterRoute(nameof(GameScreen), typeof(GameScreen));
     }
 }

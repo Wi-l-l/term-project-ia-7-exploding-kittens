@@ -14,6 +14,7 @@ public class GameManager
     private int _difficultyLevel;
     private GameHistory _gameHistory = new GameHistory();
     private string baseLibrary = "/Users/willock";
+    private int _userCardHandCount;
     
     public GameManager()
     {
@@ -36,14 +37,33 @@ public class GameManager
         //
         NewGame();
     }
+    
+    public int UserCardHandCount
+    {
+        get { return _userCardHandCount; }
+    }
 
+    public string TurnStatus
+    {
+        get
+        {
+            if (_roundIsOver)
+            {
+                return "Round is over";
+            }
+            else
+            {
+                return "Round can continue";
+            }
+        }
+    }
+    
     public Card DrawCard(int playerIndex)
     {
         //Get 1 card from the deck
         Card cardTaken = _cardDeck.ProvideCard();
         
         //check if the card's type is Exploding Kitten
-
         if (cardTaken.Type == CardType.ExplodingKitten)
         {
             //tell the player who drew the exploding kitten that they're out
@@ -56,6 +76,9 @@ public class GameManager
             {
                 if (player.IsEliminated == false)
                 {
+                    //get card count in hand
+                    _userCardHandCount = player.Hand.Count;
+                    
                     //Add 1 player to remaining player count
                     remainingPlayerCount++;
                     
@@ -88,6 +111,34 @@ public class GameManager
         _playersList[playerIndex].TakeCard(cardTaken);
         return cardTaken;
     }
+
+    public bool PlayerHasExploded()
+    {
+        return _roundIsOver;
+    }
+    
+    public void DealCards()
+    {
+        for (int playerNo = 0; playerNo < _playerCount; playerNo++)
+        {
+            if (PlayerIsEliminated(playerNo) == false)
+            {
+                Card cardDrawn = DrawCard(playerNo);
+            }
+        }
+    }
+
+    public bool PlayerHasDefuse()
+    {
+        return false;
+    }
+
+    public void UseDefuseCard()
+    {
+        
+    }
+
+    
     
     public bool GameIsOver()
     {
