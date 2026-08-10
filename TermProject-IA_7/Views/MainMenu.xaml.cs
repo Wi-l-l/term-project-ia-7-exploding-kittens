@@ -51,7 +51,7 @@ public partial class MainMenu : ContentPage
 
     {
 
-        await Shell.Current.GoToAsync("//StatsScreen");
+        await Shell.Current.GoToAsync(nameof(StatisticsScreen));
 
     }
 

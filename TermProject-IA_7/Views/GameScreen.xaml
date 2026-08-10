@@ -7,7 +7,7 @@
     <ScrollView>
         <VerticalStackLayout Spacing="15" Padding="20">
             <!-- TOP SECTION: Computer Opponent Hand Bubble  -->
-            <Border BackgroundColor="#F0F0F0"  Padding="15">
+            <Border BackgroundColor="#000000"  Padding="15">
                 <VerticalStackLayout Spacing="5">
                     <Label Text="COMPUTER OPPONENT (Medium AI)" 
                            FontAttributes="Bold" FontSize="16" />
@@ -25,7 +25,7 @@
             <Grid ColumnDefinitions="*, *, 1.2*" HeightRequest="200" ColumnSpacing="15">
                 <!-- Draw Deck Area -->
                 <Border Grid.Column="0" 
-                        BackgroundColor="#EAEAEA" 
+                        BackgroundColor="#000000" 
                         HorizontalOptions="Fill" VerticalOptions="Fill">
                     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
                         <Label Text="DRAW DECK" 
@@ -36,7 +36,7 @@
                 </Border>
                 
                 <!-- Discard Pile Area -->
-                <Border Grid.Column="1" BackgroundColor="#EAEAEA" HorizontalOptions="Fill" VerticalOptions="Fill">
+                <Border Grid.Column="1" BackgroundColor="#000000" HorizontalOptions="Fill" VerticalOptions="Fill">
                     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
                         <Label Text="DISCARD PILE" 
                                HorizontalOptions="Center" FontAttributes="Bold"/>
@@ -48,7 +48,7 @@
                 </Border>
                 
                 <!-- Scrollable Game Log  -->
-                <Border Grid.Column="2" BackgroundColor="#FAF9F6" >
+                <Border Grid.Column="2" BackgroundColor="#000000" >
                     <VerticalStackLayout Spacing="5">
                         <Label Text="GAME LOG" 
                                FontAttributes="Bold" HorizontalOptions="Center" 
@@ -63,7 +63,7 @@
             </Grid>
             
             <!-- BOTTOM SECTION: Your Hand Frame -->
-            <Border  BackgroundColor="#E0E0E0" Padding="15">
+            <Border  BackgroundColor="#000000" Padding="15">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="YOUR HAND" FontAttributes="Bold" HorizontalOptions="Center"/>
                     
@@ -77,6 +77,8 @@
                                 Clicked="OnPlayCards" />
                         <Button Text="TACO CAT"
                                 Clicked="OnPlayCards" />
+                        <Button Text="Start New Game"
+                                Clicked="OnNewGame"/>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </Border>

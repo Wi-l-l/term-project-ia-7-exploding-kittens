@@ -9,6 +9,7 @@ public class Player
     private bool _hasBet;
     private double _bet;
     private bool _isEliminated = false;
+    private int _winCounter = 0;
  
     public Player(int id, string name, int coinBalance)
     {
@@ -45,7 +46,13 @@ public class Player
         get => _isEliminated;
         set => _isEliminated = value;
     }
- 
+
+    public int WinCounter
+    {
+        get { return _winCounter; }
+        set { _winCounter = value; } 
+    }
+
     public void AddCard(Card card)
     {
         _hand.Add(card);

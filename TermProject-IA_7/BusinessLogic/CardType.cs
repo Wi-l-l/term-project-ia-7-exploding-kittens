@@ -5,5 +5,6 @@ public enum CardType
     SleepyKitten,
     HappyKitten,
     MysteriousKitten,
-    ExplodingKitten
+    ExplodingKitten,
+    DefuseCard
 }

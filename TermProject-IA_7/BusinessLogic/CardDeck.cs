@@ -76,6 +76,9 @@ public class CardDeck
                     case 2:
                         card.Type = CardType.MysteriousKitten;
                         break;
+//                    case 3:
+                        //card.Type = CardType.DefuseCard;
+                        //break;
                 } 
             }
             

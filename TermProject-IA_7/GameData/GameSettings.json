@@ -1,5 +1,5 @@
 {
-  "deckSize": 6,
-  "maxUsers": 3,
+  "deckSize": 10,
+  "maxUsers": 2,
   "difficultyLevels": 3
 }

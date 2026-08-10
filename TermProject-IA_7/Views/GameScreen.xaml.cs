@@ -5,13 +5,18 @@ namespace TermProject_IA_7;
 public partial class GameScreen : ContentPage 
 {
 
-    private GameManager _gameManager;
+    private static GameManager _gameManager;
     
     public GameScreen()
     {
         InitializeComponent();
         _gameManager = new GameManager();
         InitializeRound();
+    }
+
+    public static GameManager GameManager
+    {
+        get { return _gameManager; }
     }
     
     private void InitializeRound()
@@ -26,8 +31,9 @@ public partial class GameScreen : ContentPage
         try 
         {
             // Draw logic handles drawing cards and checks for exploding kittens
-            _gameManager.DealCards();
-            _txtGameLog.Text += "\n[18:18] Player drew a card.";
+            string cardInfo = _gameManager.DealCards();
+            _txtGameLog.Text += "\n[18:18] Players drew a card.";
+            _lblLastDiscardedCard.Text = cardInfo;
             UpdateDisplay();
             
             // Exploding Kitten checks
@@ -67,25 +73,14 @@ public partial class GameScreen : ContentPage
     private async Task OnExplodingKitten()
     {
         _txtGameLog.Text += "\n[18:20] EXPLODING KITTEN DRAWN!";
-        bool hasDefuse = _gameManager.PlayerHasDefuse();
+        //bool hasDefuse = _gameManager.PlayerHasDefuse();
         
-        if (!hasDefuse)
-        {
 
             DisplayGameOver();
 
-            await DisplayAlert("Boom!", "You drew an Exploding Kitten and had no Defuse card!", "OK");
+            await DisplayAlert("Boom!", "An Exploding Kitten was drawn and had no Defuse card!", "OK");
 
-            await Navigation.PopAsync(); // Return back to menu
-        }
-
-        else
-        {
-            _gameManager.UseDefuseCard();
-            _txtGameLog.Text += "\n[18:20] Player used DEFUSE.";
-            UpdateDisplay();
-            await DisplayAlert("Saved!", "You defused the kitten!", "OK");
-        }
+            //await Navigation.PopAsync(); // Return back to menu
     }
     
     private void DisplayGameOver()
@@ -100,8 +95,17 @@ public partial class GameScreen : ContentPage
         _lblComputerHandSize.Text = $"Hand Size: {_gameManager.UserCardHandCount} Cards";
         _lblGameStatus.Text = $"Status: {_gameManager.TurnStatus}";
         
+        //show cards players drawn
+        
+        
         // Hand layouts would be dynamically loaded in production from player.Hand collection
         
     }
 
+    private void OnNewGame(object? sender, EventArgs e)
+    {
+        //
+        _gameManager.NewGame();
+        _txtGameLog.Text += "\n[18:18] Start a new game.";
+    }
 }

@@ -37,6 +37,11 @@ public class GameManager
         //
         NewGame();
     }
+
+    public ObservableCollection<Player> PlayersList
+    {
+        get { return _playersList; }
+    }
     
     public int UserCardHandCount
     {
@@ -66,37 +71,43 @@ public class GameManager
         //check if the card's type is Exploding Kitten
         if (cardTaken.Type == CardType.ExplodingKitten)
         {
+            if (!PlayerHasDefuse(playerIndex))
             //tell the player who drew the exploding kitten that they're out
-            _playersList[playerIndex].IsEliminated = true;
-            _roundIsOver = true;
-            
-            //check if there is only one player
-            int remainingPlayerCount = 0;
-            foreach (Player player in _playersList)
             {
-                if (player.IsEliminated == false)
+                _playersList[playerIndex].IsEliminated = true;
+                _roundIsOver = true;
+            
+                //check if there is only one player
+                int remainingPlayerCount = 0;
+                foreach (Player player in _playersList)
                 {
-                    //get card count in hand
-                    _userCardHandCount = player.Hand.Count;
-                    
-                    //Add 1 player to remaining player count
-                    remainingPlayerCount++;
-                    
-                    //Each remaining player will gain 1 score
-                    GameResult result = _gameHistory.Results.Last();
-                    foreach (GamePlayer gamePlayer in result.Players)
+                    if (player.IsEliminated == false)
                     {
-                        if (gamePlayer.PlayerId == player.Id)
+                        //get card count in hand
+                        _userCardHandCount = player.Hand.Count;
+                        
+                        //Add 1 player to remaining player count
+                        remainingPlayerCount++;
+                        
+                        //Add 1 win to the winning player
+                        player.WinCounter++;
+                        
+                        //Each remaining player will gain 1 score
+                        GameResult result = _gameHistory.Results.Last();
+                        foreach (GamePlayer gamePlayer in result.Players)
                         {
-                            gamePlayer.PlayerScore++;
+                            if (gamePlayer.PlayerId == player.Id)
+                            {
+                                gamePlayer.PlayerScore++;
+                            }
                         }
                     }
                 }
-            }
 
-            if (remainingPlayerCount == 1)
-            {
-                _gameIsOver = true;
+                if (remainingPlayerCount == 1)
+                {
+                    _gameIsOver = true;
+                }
             }
             
             //stop the game
@@ -117,20 +128,34 @@ public class GameManager
         return _roundIsOver;
     }
     
-    public void DealCards()
+    public string DealCards()
     {
+        string cardInfo = "";
         for (int playerNo = 0; playerNo < _playerCount; playerNo++)
         {
             if (PlayerIsEliminated(playerNo) == false)
             {
                 Card cardDrawn = DrawCard(playerNo);
+                cardInfo += _playersList[playerNo].Name + " draw a " + cardDrawn.Type.ToString()+"\n\r";
             }
         }
+
+        return cardInfo;
     }
 
-    public bool PlayerHasDefuse()
+    public bool PlayerHasDefuse(int playerIndex)
     {
-        return false;
+        bool useDefuseCard = false;
+        foreach (Card cardInHand in _playersList[playerIndex].Hand)
+        {
+            if (cardInHand.Type == CardType.DefuseCard)
+            {
+                useDefuseCard = true;
+                cardInHand.Type = CardType.SleepyKitten; //switch defuse card to default SleepyKitten
+                _cardDeck.ShuffleDeck();
+            }
+        }
+        return useDefuseCard;
     }
 
     public void UseDefuseCard()

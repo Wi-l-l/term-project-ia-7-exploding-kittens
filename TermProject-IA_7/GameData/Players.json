@@ -2,18 +2,13 @@
   "PlayerList": [
     {
       "PlayerId": 1,
-      "PlayerName": "Alice",
+      "PlayerName": "Bob",
       "CoinBalance": 200
     },
     {
       "PlayerId": 2,
-      "PlayerName": "Bob",
+      "PlayerName": "Computer",
       "CoinBalance": 300
-    },
-    {
-      "PlayerId": 3,
-      "PlayerName": "Charles",
-      "CoinBalance": 500
     }
   ]
 }
